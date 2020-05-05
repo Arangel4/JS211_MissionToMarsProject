@@ -1,8 +1,6 @@
 'use strict';
 const assert = require('assert');
 
-
-
 // This is an object that has types of jobs and the values each provide.
 const jobTypes = {
   pilot: 'MAV',
@@ -10,6 +8,7 @@ const jobTypes = {
   commander: 'Main Ship',
   programmer: 'Any Ship!'
 };
+
 //  CrewMember class with all of it's values.
 class CrewMember {
   constructor(name, job, specialSkill, ship) {
@@ -18,12 +17,14 @@ class CrewMember {
     this.specialSkill = specialSkill;
     this.ship = null;
   }
-  // enterShip is a function.
-  enterShip = (mav) => {
-    this.ship = mav;
-    mav.crew.push(crewMember1);
+
+  // enterShip is a function, when called it will add a crew member into the Ship crew array, and assign the crewmember the correct ship.
+  enterShip = (theShip) => {
+    this.ship = theShip;
+    theShip.crew.push(this);
   }
 }
+
 
 // Ship class with all of it's values.
 class Ship {
@@ -34,17 +35,19 @@ class Ship {
       this.crew = [];
   }
 
-  // missionStatement = () => {
-  //   return "Can't perform a mission yet.";
-  // }
-  // get missionStatement() {
-  //   if (crewMember1) {
-  //     return `${mav.ability}`;
-  //   }
-  //   else if (crewMember2) {
-  //     return `${hermes.ability}`;
-  //   }
-  // }
+  missionStatement (theShip) {
+    if(this.crew. length === 0) {
+      return "Can't perform a mission yet.";
+    }
+    else {
+      if(this.ship === theShip) {
+        return this.ability;
+      }
+      else if (this.ship === theShip) {
+        return this.ability;
+      }
+    }
+  }
 }
 
 // Creates a crew member by calling CrewMember class.
@@ -53,18 +56,15 @@ const crewMember2 = new CrewMember('Commander Lewis', 'commander', 'geology');
 
 // Creates the two different ship with their own values.
 let mav = new Ship("Mars Ascent Vehicle", "MAV", "Ascend into low orbit");
-let hermes = new Ship('Hermes', 'Main Ship', 'Interplanetary Space Travel');
+let hermes = new Ship("Hermes", "Main Ship", "Interplanetary Space Travel");
 
 // Unit Test 2 allows crew member to enter Ship
 crewMember1.enterShip(mav);
 
-// mav.missionStatement();
-// hermes.missionStatement();
-// crewMember1.enterShip(mav);
-// crewMember2.enterShip(hermes);
-
-
-
+mav.missionStatement();
+hermes.missionStatement()
+crewMember1.enterShip(mav);
+crewMember2.enterShip(hermes);
 
 // Begin by reading the tests and building a function that will full each one.
 // As you build, you might not have to build them in order, maybe you do...
